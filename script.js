@@ -6,7 +6,7 @@ const personalMovieDB = {
     movies: {},
     actors: {},
     genres: [],
-    privat: false,
+    privat: true,
 
     start() {
         personalMovieDB.count = +prompt('Сколько фильмов вы посмотрели?', '');
@@ -41,13 +41,17 @@ const personalMovieDB = {
         }
     },
 
+    toggleVisibleMyDB(callback) {
+        if (personalMovieDB.privat || !personalMovieDB.privat) {
+            personalMovieDB.privat = !personalMovieDB.privat
+        }
+        callback()
+    },
+
     ShowMyDb(){
-        if (personalMovieDB.privat== false) {
+        if (!personalMovieDB.privat) {
             console.log(personalMovieDB)
         }
-        // if (!hidden) {
-        //     console.log(personalMovieDB);
-        // } 
     },
 
     writeYourGenres(){
@@ -64,9 +68,9 @@ personalMovieDB.rememberMyFilms();
 
 personalMovieDB.detectedPersonalLevel();
 
-personalMovieDB.writeYourGenres();
+personalMovieDB.toggleVisibleMyDB(personalMovieDB.ShowMyDb)
 
-personalMovieDB.ShowMyDb()
+personalMovieDB.writeYourGenres();
 
 
 
